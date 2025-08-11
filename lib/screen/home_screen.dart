@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   VoteInfoCard(
-                    title: "Vote For \n Class President Election",
+                    title: "Vote For \n club President Election",
                     dateInfo: "October 1st to October 10th - 9 am to 5 pm",
                     description:
                         "Class presidents work to represent the needs and opinions of their class within the student council.",
