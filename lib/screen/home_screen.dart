@@ -185,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 minimumSize: const Size(450, 50),
               ),
               child: const Text(
-                'Vote',
+                'Vote Now',
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

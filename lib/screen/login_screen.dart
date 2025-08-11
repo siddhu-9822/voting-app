@@ -106,7 +106,7 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
             ElevatedButton(
               onPressed: _handleLogin,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff8CA8F6),
+                backgroundColor: Color(0xff5B81FE),
                 minimumSize: const Size(double.infinity, 50),
               ),
               child: const Text(
