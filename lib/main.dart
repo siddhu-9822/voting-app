@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vote/screen/home_screen.dart';
 import 'package:flutter_vote/screen/login_screen.dart';
 import 'package:flutter_vote/screen/profile_screen.dart';
+import 'package:flutter_vote/screen/result_screen.dart';
 import 'package:flutter_vote/screen/sign_up.dart';
 import 'package:flutter_vote/screen/splash_screen.dart';
+import 'package:flutter_vote/screen/voter_list_screen.dart';
 import 'package:flutter_vote/screen/welcome_screen.dart';
 
 void main() {
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: ProfileScreen(),
+      home: SimpleLoginScreen(),
     );
   }
 }

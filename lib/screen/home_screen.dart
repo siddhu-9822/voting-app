@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_vote/screen/voter_list_screen.dart';
+import 'package:flutter_vote/widgets/custom_button.dart';
 import 'package:flutter_vote/widgets/custom_container.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -177,21 +180,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff5B81FE),
-                minimumSize: const Size(450, 50),
-              ),
-              child: const Text(
-                'Vote Now',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
+            padding: const EdgeInsets.only(top: 50, right: 50, left: 50),
+            child: CustomButton(
+              text: 'Vote Now',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const VoterListScreen(),
+                  ),
+                );
+              },
             ),
           ),
         ],

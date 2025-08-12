@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.white,
       body: Center(
         child: Container(
-          height: 200,
+          height: 300,
           width: 300,
           child: Image.asset('asset/images/vote_logo.png'),
         ),

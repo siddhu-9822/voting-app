@@ -1,106 +1,157 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vote/screen/login_screen.dart';
+import 'package:flutter_vote/widgets/custom_button.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
   @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+
+  @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 50, right: 50),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 45),
-              child: Text("Create Account", style: TextStyle(fontSize: 36)),
-            ),
-            const Spacer(),
-            Image.asset('asset/images/vote_logo.png', height: 100, width: 200),
-
-            const Spacer(),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-                filled: true,
-                fillColor: const Color.fromARGB(20, 0, 0, 0),
-                labelStyle: const TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              style: const TextStyle(color: Colors.black, fontSize: 22),
-            ),
-            SizedBox(height: 30),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Password',
-                filled: true,
-                fillColor: const Color.fromARGB(20, 0, 0, 0),
-                labelStyle: const TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              style: const TextStyle(color: Colors.black, fontSize: 22),
-            ),
-            SizedBox(height: 30),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Confirm Password',
-                filled: true,
-                fillColor: const Color.fromARGB(20, 0, 0, 0),
-                labelStyle: const TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              style: const TextStyle(color: Colors.black, fontSize: 22),
-            ),
-            SizedBox(height: 30),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Username',
-                filled: true,
-                fillColor: const Color.fromARGB(20, 0, 0, 0),
-                labelStyle: const TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              style: const TextStyle(color: Colors.black, fontSize: 22),
-            ),
-            // SizedBox(height: 100),
-            const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to Sign Up Screen
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff5B81FE),
-                minimumSize: const Size(double.infinity, 50),
-              ),
-              child: const Text(
-                'Sign Up',
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+            horizontal: size.width * 0.12, // Responsive horizontal padding
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: size.height * 0.03),
+              Text(
+                "Create Account",
                 style: TextStyle(
-                  color: Colors.black,
+                  fontSize: size.width * 0.08, // Scales with screen
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
                 ),
               ),
-            ),
-            SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Already have an account",
-                  style: TextStyle(color: Colors.black, fontSize: 17),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Navigate to Sign Up Screen
-                  },
-                  child: const Text(
-                    "Log In.",
-                    style: TextStyle(color: Colors.blue, fontSize: 17),
-                  ),
-                ),
-              ],
-            ),
+              SizedBox(height: size.height * 0.03),
 
-            const Spacer(),
-          ],
+              // Logo
+              Image.asset(
+                'asset/images/vote_logo.png',
+                height: size.height * 0.20,
+              ),
+              SizedBox(height: size.height * 0.03),
+
+              // Email
+              _buildTextField(label: 'Email'),
+              SizedBox(height: size.height * 0.03),
+
+              // Password
+              _buildTextField(
+                label: 'Password',
+                isPassword: true,
+                isVisible: _isPasswordVisible,
+                onVisibilityChanged: () {
+                  setState(() {
+                    _isPasswordVisible = !_isPasswordVisible;
+                  });
+                },
+              ),
+              SizedBox(height: size.height * 0.03),
+
+              // Confirm Password
+              _buildTextField(
+                label: 'Confirm Password',
+                isPassword: true,
+                isVisible: _isConfirmPasswordVisible,
+                onVisibilityChanged: () {
+                  setState(() {
+                    _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                  });
+                },
+              ),
+              SizedBox(height: size.height * 0.03),
+
+              // Username
+              _buildTextField(label: 'Username'),
+              SizedBox(height: size.height * 0.06),
+
+              // Sign Up Button
+              CustomButton(
+                text: 'Sign Up',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SimpleLoginScreen(),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: size.height * 0.02),
+
+              // Already have account
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already have an account",
+                    style: TextStyle(fontSize: size.width * 0.035),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SimpleLoginScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Log In.",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: size.width * 0.035,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: size.height * 0.05),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextField({
+    required String label,
+    bool isPassword = false,
+    bool isVisible = false,
+    VoidCallback? onVisibilityChanged,
+  }) {
+    return TextField(
+      obscureText: isPassword && !isVisible,
+      decoration: InputDecoration(
+        labelText: label,
+        filled: true,
+        fillColor: const Color.fromARGB(30, 168, 167, 167),
+        labelStyle: const TextStyle(color: Colors.black, fontSize: 15),
+        suffixIcon: isPassword
+            ? IconButton(
+                icon: Icon(
+                  isVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.grey,
+                ),
+                onPressed: onVisibilityChanged,
+              )
+            : null,
+      ),
+
+      style: const TextStyle(color: Colors.black, fontSize: 20),
     );
   }
 }
