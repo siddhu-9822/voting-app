@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_vote/screen/voter_list_screen.dart';
 import 'package:flutter_vote/widgets/custom_button.dart';
-import 'package:flutter_vote/widgets/custom_container.dart';
+import 'package:flutter_vote/widgets/custom_voteInfocard.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,18 +13,25 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 60,
-
+        toolbarHeight: screenHeight * 0.08,
         leading: IconButton(
-          icon: Icon(Icons.home_outlined, color: Colors.black, size: 50),
+          icon: Icon(
+            Icons.home_outlined,
+            color: Colors.black,
+            size: screenWidth * 0.09,
+          ),
           onPressed: () {},
         ),
         title: Image.asset(
           'asset/images/vote_logo.png',
-          height: 70,
-          width: 200,
+          height: screenHeight * 0.12,
+          width: screenWidth * 0.8,
         ),
         centerTitle: true,
         actions: [
@@ -33,168 +39,153 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(
               Icons.account_circle_outlined,
               color: Colors.black,
-              size: 50,
+              size: screenWidth * 0.09,
             ),
             onPressed: () {},
           ),
         ],
       ),
 
-      body: Column(
-        children: [
-          SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.all(30),
-            child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          vertical: screenHeight * 0.02,
+          horizontal: screenWidth * 0.025,
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(screenWidth * 0.02),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    VoteInfoCard(
+                      title: "Vote For \n Club President Election",
+                      dateInfo: "Oct 1st - Oct 10th (9 am - 5 pm)",
+                      description:
+                          "Class presidents work to represent the needs and opinions of their class within the student council.",
+                      backgroundColor: const Color.fromARGB(255, 240, 206, 226),
+                    ),
+                    SizedBox(width: screenWidth * 0.03),
+                    VoteInfoCard(
+                      title: "Vote For\n Class Monitor",
+                      dateInfo: "Sep 12th - Sep 28th (9 am - 5 pm)",
+                      description:
+                          "Class monitors maintain discipline, coordinate activities, and represent their classmates to staff.",
+                    ),
+                    SizedBox(width: screenWidth * 0.03),
+                    VoteInfoCard(
+                      title: "Vote For\n Students Representative",
+                      dateInfo: "Aug 22nd - Sep 25th (8 am - 10 pm)",
+                      description:
+                          "Student reps lobby for students' rights and represent peers' views.\n  ",
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Dots indicator
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _dot(true, screenWidth),
+                SizedBox(width: screenWidth * 0.015),
+                _dot(false, screenWidth),
+                SizedBox(width: screenWidth * 0.015),
+                _dot(false, screenWidth),
+              ],
+            ),
+            SizedBox(height: screenHeight * 0.10),
+
+            // Title
+            Text(
+              "Candidates list",
+              style: TextStyle(
+                fontSize: screenWidth * 0.055,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.03),
+
+            // Candidates list
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  VoteInfoCard(
-                    title: "Vote For \n club President Election",
-                    dateInfo: "October 1st to October 10th - 9 am to 5 pm",
-                    description:
-                        "Class presidents work to represent the needs and opinions of their class within the student council.",
-                    backgroundColor: Color.fromARGB(255, 188, 166, 178),
+                  _candidate(
+                    "asset/images/avatar1.png",
+                    "Shekhar\nTikhe",
+                    screenWidth,
                   ),
-                  const SizedBox(width: 20),
-                  VoteInfoCard(
-                    title: "Vote For\n Class Moniter",
-                    dateInfo: "September 12th to September 28th - 9 am to 5 pm",
-                    description:
-                        "Class monitors work to maintain discipline, coordinate activities, and represent the needs of their classmates to teachers and school staff.",
+                  SizedBox(width: screenWidth * 0.05),
+                  _candidate(
+                    "asset/images/avatar2.png",
+                    "Siddheshwar\nKamjalge",
+                    screenWidth,
                   ),
-                  SizedBox(width: 20),
-                  VoteInfoCard(
-                    title: "Vote for \n Students Representative",
-                    dateInfo: "August 22th to September 25th - 8 am to 10 pm",
-                    description:
-                        "Student representatives are known as enrolled scholars at their institution elected to lobby for students' rights and represent their peers' views.",
+                  SizedBox(width: screenWidth * 0.05),
+                  _candidate(
+                    "asset/images/avatar3.png",
+                    "Satyam\nWadje",
+                    screenWidth,
                   ),
                 ],
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 20,
-                height: 20,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 188, 166, 178), // dot color
-                  shape: BoxShape.circle, // makes it round
-                ),
+            SizedBox(height: screenHeight * 0.09),
+
+            // Vote button
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.12),
+              child: CustomButton(
+                text: 'Vote Now',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const VoterListScreen(),
+                    ),
+                  );
+                },
               ),
-              SizedBox(width: 5),
-              Container(
-                width: 15,
-                height: 15,
-                decoration: const BoxDecoration(
-                  color: Color(0xffF8E2EE), // dot color
-                  shape: BoxShape.circle, // makes it round
-                ),
-              ),
-              SizedBox(width: 5),
-              Container(
-                width: 15,
-                height: 15,
-                decoration: const BoxDecoration(
-                  color: Color(0xffF8E2EE), // dot color
-                  shape: BoxShape.circle, // makes it round
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 50),
-          Text(
-            "Candidates list",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w800),
-          ),
-          SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 70, // size
-                      backgroundImage: AssetImage(
-                        "asset/images/avatar1.png",
-                      ), // asset image
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Shekhar\nTikhe",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-                SizedBox(width: 20),
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 70, // size
-                      backgroundImage: AssetImage(
-                        "asset/images/avatar2.png",
-                      ), // asset image
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Siddheshwar\nKamjalge",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-                SizedBox(width: 20),
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 70, // size
-                      backgroundImage: AssetImage(
-                        "asset/images/avatar3.png",
-                      ), // asset image
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Satyam\nWadje",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 50, right: 50, left: 50),
-            child: CustomButton(
-              text: 'Vote Now',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const VoterListScreen(),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _dot(bool isActive, double screenWidth) {
+    return Container(
+      width: isActive ? screenWidth * 0.04 : screenWidth * 0.03,
+      height: isActive ? screenWidth * 0.04 : screenWidth * 0.03,
+      decoration: BoxDecoration(
+        color: isActive
+            ? const Color.fromARGB(255, 240, 206, 226)
+            : const Color(0xffF8E2EE),
+        shape: BoxShape.circle,
+      ),
+    );
+  }
+
+  Widget _candidate(String image, String name, double screenWidth) {
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: screenWidth * 0.13,
+          backgroundImage: AssetImage(image),
+        ),
+        SizedBox(height: screenWidth * 0.025),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: screenWidth * 0.045,
+            fontWeight: FontWeight.w700,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

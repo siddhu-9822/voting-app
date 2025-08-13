@@ -4,7 +4,7 @@ class VoteInfoCard extends StatelessWidget {
   final String title;
   final String dateInfo;
   final String description;
-  final Color backgroundColor; // new parameter
+  final Color backgroundColor;
 
   const VoteInfoCard({
     super.key,
@@ -16,44 +16,47 @@ class VoteInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Container(
-      height: 250,
-      width: 440,
+      height: size.height * 0.25, // 30% of screen height
+      width: size.width * 0.9, // 80% of screen width
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 10),
+          SizedBox(height: size.height * 0.01),
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.black,
-              fontSize: 30,
+              fontSize: size.width * 0.07, // dynamic font size
               fontWeight: FontWeight.w900,
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: size.height * 0.01),
           Text(
             dateInfo,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.black,
-              fontSize: 18,
+              fontSize: size.width * 0.045,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: size.height * 0.01),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
             child: Text(
               description,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.black,
-                fontSize: 17,
+                fontSize: size.width * 0.04,
                 fontWeight: FontWeight.w400,
               ),
             ),

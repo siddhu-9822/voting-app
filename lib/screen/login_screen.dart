@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vote/screen/home_screen.dart';
 import 'package:flutter_vote/screen/sign_up.dart';
+import 'package:flutter_vote/screen/welcome_screen.dart';
 import 'package:flutter_vote/widgets/custom_button.dart';
 
 class SimpleLoginScreen extends StatefulWidget {
@@ -30,7 +30,7 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
     if (email == "skkaa971@gmail.com" && password == "Siddhu@98") {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const WelcomeScreen()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

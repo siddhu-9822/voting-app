@@ -1,60 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vote/screen/home_screen.dart';
+import 'package:flutter_vote/widgets/custom_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.only(top: 150, right: 30, left: 30),
+          padding: EdgeInsets.only(
+            top: screenHeight * 0.15,
+            right: screenWidth * 0.08,
+            left: screenWidth * 0.08,
+          ),
           child: Column(
             children: [
               Text(
                 "Hi Siddheshwar!\nWelcome to\nWeVote.",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 36,
+                  fontSize: screenWidth * 0.09, // Responsive font
                   fontWeight: FontWeight.w900,
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 50),
+              SizedBox(height: screenHeight * 0.05),
               Text(
                 "Your account has been created\nsuccessfully",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: screenWidth * 0.05,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 50),
+              SizedBox(height: screenHeight * 0.05),
               Image.asset(
                 'asset/images/welcome_vote.png',
-                height: 300,
-                width: 300,
+                height: screenHeight * 0.3,
+                width: screenWidth * 0.7,
+                fit: BoxFit.contain,
               ),
-              SizedBox(height: 50),
-              ElevatedButton(
+              SizedBox(height: screenHeight * 0.05),
+              CustomButton(
+                text: 'Continue',
                 onPressed: () {
-                  // Navigate to Sign Up Screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff5B81FE),
-                  minimumSize: const Size(double.infinity, 50),
-                ),
-
-                child: const Text(
-                  'Contine',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
               ),
             ],
           ),

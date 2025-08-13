@@ -14,44 +14,41 @@ class CandidateInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[400],
-        borderRadius: BorderRadius.circular(20), // Rounded corners
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(backgroundImage: AssetImage(imagePath), radius: 50),
-          const SizedBox(width: 20),
-          Expanded(
-            // ✅ Auto adjust width
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CircleAvatar(
+          backgroundImage: AssetImage(imagePath),
+          radius: screenWidth * 0.12, // responsive radius
+        ),
+        SizedBox(width: screenWidth * 0.05),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: TextStyle(
+                  fontSize: screenWidth * 0.05, // responsive font
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 5),
-                Text(
-                  description,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis, // Prevents overflow
+              ),
+              SizedBox(height: screenWidth * 0.01),
+              Text(
+                description,
+                style: TextStyle(
+                  fontSize: screenWidth * 0.04,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
-            ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
