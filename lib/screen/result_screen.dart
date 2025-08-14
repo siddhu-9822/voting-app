@@ -24,7 +24,7 @@ class _ResultScreenState extends State<ResultScreen> {
           child: Text(
             "Result of Election",
             style: TextStyle(
-              fontSize: screenWidth * 0.07, // Responsive font size
+              fontSize: screenWidth * 0.07,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -35,6 +35,7 @@ class _ResultScreenState extends State<ResultScreen> {
           child: Column(
             children: [
               SizedBox(height: screenHeight * 0.05),
+              // candidate 1
               ResultList(
                 imagePath: 'asset/images/avatar2.png',
                 name: 'Siddheshwar Kamjalge',
@@ -43,6 +44,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 maxScore: 1000,
               ),
               SizedBox(height: screenHeight * 0.03),
+              // candidate 2
               ResultList(
                 imagePath: 'asset/images/avatar3.png',
                 name: 'Satyam Wadje',
@@ -51,6 +53,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 maxScore: 1000,
               ),
               SizedBox(height: screenHeight * 0.03),
+              // candidate 3
               ResultList(
                 imagePath: 'asset/images/avatar1.png',
                 name: 'Shekhar Tikhe',
@@ -64,6 +67,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   horizontal: screenWidth * 0.06,
                   vertical: screenHeight * 0.02,
                 ),
+                // Home Button
                 child: CustomButton(
                   text: "Home",
                   onPressed: () {

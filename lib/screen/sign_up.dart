@@ -21,9 +21,7 @@ class _SignUpState extends State<SignUp> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.12, // Responsive horizontal padding
-          ),
+          padding: EdgeInsets.symmetric(horizontal: size.width * 0.12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -31,7 +29,7 @@ class _SignUpState extends State<SignUp> {
               Text(
                 "Create Account",
                 style: TextStyle(
-                  fontSize: size.width * 0.08, // Scales with screen
+                  fontSize: size.width * 0.08,
                   fontWeight: FontWeight.bold,
                 ),
               ),

@@ -25,7 +25,7 @@ class WelcomeScreen extends StatelessWidget {
                 "Hi Siddheshwar!\nWelcome to\nWeVote.",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: screenWidth * 0.09, // Responsive font
+                  fontSize: screenWidth * 0.09,
                   fontWeight: FontWeight.w900,
                 ),
                 textAlign: TextAlign.center,

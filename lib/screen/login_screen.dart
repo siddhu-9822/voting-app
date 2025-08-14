@@ -41,7 +41,7 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size; // Device size
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -49,8 +49,8 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: size.width * 0.06, // 6% of screen width
-              vertical: size.height * 0.02, // 2% of screen height
+              horizontal: size.width * 0.06,
+              vertical: size.height * 0.02,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -148,6 +148,7 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
                       "Don't have an account?",
                       style: TextStyle(color: Colors.black, fontSize: 17),
                     ),
+                    // Navigate to Sign Up Screen or Button
                     TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -156,7 +157,6 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
                             builder: (context) => const SignUp(),
                           ),
                         );
-                        // Navigate to Sign Up Screen
                       },
                       child: const Text(
                         "Sign Up",

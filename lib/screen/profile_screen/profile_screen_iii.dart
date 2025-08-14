@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vote/screen/result_screen.dart';
 import 'package:flutter_vote/screen/voter_list_screen.dart';
 import 'package:flutter_vote/widgets/custom_button.dart';
+import 'package:flutter_vote/widgets/custom_cliper.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen3 extends StatefulWidget {
+  const ProfileScreen3({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<ProfileScreen3> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen3> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -27,22 +28,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           },
         ),
-        title: const Text("Club President Profile"),
+        title: const Text("Member Profile"),
+        backgroundColor: const Color.fromARGB(100, 115, 80, 212),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
         child: Column(
           children: [
-            SizedBox(height: screenHeight * 0.08),
             Center(
-              child: CircleAvatar(
-                radius: screenWidth * 0.18,
-                backgroundImage: const AssetImage('asset/images/avatar2.png'),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ProfileHeaderShape(), // The background curve
+                  Positioned(
+                    bottom: 0.05,
+                    child: CircleAvatar(
+                      radius: 100,
+                      backgroundImage: AssetImage('asset/images/avatar3.png'),
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: screenHeight * 0.015),
             Text(
-              "Siddheshwar Kamjalge",
+              "Satyam Wadje",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: screenWidth * 0.05,
@@ -52,12 +62,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: screenHeight * 0.06),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                "ABOUT",
-                style: TextStyle(
-                  fontSize: screenWidth * 0.045,
-                  fontWeight: FontWeight.w900,
-                ),
+              child: Row(
+                children: [
+                  SizedBox(width: screenWidth * 0.04),
+                  SizedBox(width: screenWidth * 0.04),
+                  Text(
+                    "ABOUT",
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.045,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: screenHeight * 0.02),
@@ -65,8 +81,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
-                SizedBox(width: screenWidth * 0.06),
-                // Left Column
+                SizedBox(width: screenWidth * 0.07),
+
                 Expanded(
                   flex: 4,
                   child: Column(
@@ -80,16 +96,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                // Right Column
+
                 Expanded(
                   flex: 10,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildValue(": Siddheshwar Kamjalge", screenWidth),
+                      buildValue(": Satyam Wadje", screenWidth),
                       buildValue(": Dip. In Computer engineering", screenWidth),
                       buildValue(": 3rd (B)", screenWidth),
-                      buildValue(": 9921047746", screenWidth),
+                      buildValue(": 9960728090", screenWidth),
                       buildValue(": Gramin Technical &", screenWidth),
                       buildValue("   Management Campus", screenWidth),
                     ],
@@ -97,15 +113,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
-            SizedBox(height: screenHeight * 0.08),
-            CustomButton(
-              text: 'Vote',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ResultScreen()),
-                );
-              },
+            SizedBox(height: screenHeight * 0.07),
+            Padding(
+              padding: const EdgeInsets.only(right: 50, left: 50),
+              child: CustomButton(
+                text: 'Vote',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ResultScreen(),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),

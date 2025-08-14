@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vote/screen/home_screen.dart';
 import 'package:flutter_vote/screen/login_screen.dart';
-import 'package:flutter_vote/screen/profile_screen.dart';
+import 'package:flutter_vote/screen/profile_screen/profile_screen_i.dart';
 import 'package:flutter_vote/screen/result_screen.dart';
 import 'package:flutter_vote/screen/sign_up.dart';
 import 'package:flutter_vote/screen/splash_screen.dart';
@@ -15,7 +15,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: ResultScreen(),
+      home: SplashScreen(),
     );
   }
 }
