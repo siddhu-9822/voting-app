@@ -30,7 +30,7 @@ class VoterListScreen extends StatelessWidget {
         padding: EdgeInsets.all(screenWidth * 0.06),
         children: [
           CandidateCard(
-            image: 'asset/images/avatar2.png',
+            image: 'assets/images/avatar2.png',
             name: 'Siddheshwar Kamjalge',
             description:
                 "Voting gives you the power to choose your own leader.",
@@ -44,7 +44,7 @@ class VoterListScreen extends StatelessWidget {
           ),
           SizedBox(height: screenWidth * 0.1),
           CandidateCard(
-            image: 'asset/images/avatar1.png',
+            image: 'assets/images/avatar1.png',
             name: 'Shekhar Tikhe',
             description:
                 "I'm a candidate focused on equity and diversity embedded in education.",
@@ -58,7 +58,7 @@ class VoterListScreen extends StatelessWidget {
           ),
           SizedBox(height: screenWidth * 0.1),
           CandidateCard(
-            image: 'asset/images/avatar3.png',
+            image: 'assets/images/avatar3.png',
             name: 'Satyam Wadje',
             description:
                 "Let your voice be heard and work towards the fulfillment of your needs.",

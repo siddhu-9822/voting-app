@@ -60,7 +60,7 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
                 // Logo
                 SizedBox(
                   height: size.height * 0.20,
-                  child: Image.asset('asset/images/vote_logo.png'),
+                  child: Image.asset('assets/images/vote_logo.png'),
                 ),
 
                 SizedBox(height: size.height * 0.10),
@@ -69,7 +69,7 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
                 TextField(
                   controller: _emailController,
                   decoration: InputDecoration(
-                    labelText: 'Email',
+                    hint: Text("Enter Email"),
                     prefixIcon: const Icon(Icons.email_outlined),
                     filled: true,
                     fillColor: const Color.fromARGB(46, 116, 116, 116),
@@ -90,7 +90,7 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
                   controller: _passwordController,
 
                   decoration: InputDecoration(
-                    labelText: 'Password',
+                    hint: Text("Enter Password"),
                     prefixIcon: const Icon(Icons.lock_outlined),
                     suffixIcon: IconButton(
                       icon: Icon(

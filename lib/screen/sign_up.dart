@@ -37,7 +37,7 @@ class _SignUpState extends State<SignUp> {
 
               // Logo
               Image.asset(
-                'asset/images/vote_logo.png',
+                'assets/images/vote_logo.png',
                 height: size.height * 0.20,
               ),
               SizedBox(height: size.height * 0.03),

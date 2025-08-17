@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: () {},
         ),
         title: Image.asset(
-          'asset/images/vote_logo.png',
+          'assets/images/vote_logo.png',
           height: screenHeight * 0.12,
           width: screenWidth * 0.8,
         ),
@@ -114,19 +114,19 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   _candidate(
-                    "asset/images/avatar1.png",
+                    "assets/images/avatar1.png",
                     "Shekhar\nTikhe",
                     screenWidth,
                   ),
                   SizedBox(width: screenWidth * 0.05),
                   _candidate(
-                    "asset/images/avatar2.png",
+                    "assets/images/avatar2.png",
                     "Siddheshwar\nKamjalge",
                     screenWidth,
                   ),
                   SizedBox(width: screenWidth * 0.05),
                   _candidate(
-                    "asset/images/avatar3.png",
+                    "assets/images/avatar3.png",
                     "Satyam\nWadje",
                     screenWidth,
                   ),

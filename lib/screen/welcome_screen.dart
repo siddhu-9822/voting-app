@@ -42,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
               ),
               SizedBox(height: screenHeight * 0.05),
               Image.asset(
-                'asset/images/welcome_vote.png',
+                'assets/images/welcome_vote.png',
                 height: screenHeight * 0.3,
                 width: screenWidth * 0.7,
                 fit: BoxFit.contain,

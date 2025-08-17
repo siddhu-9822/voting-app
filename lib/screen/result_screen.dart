@@ -37,7 +37,7 @@ class _ResultScreenState extends State<ResultScreen> {
               SizedBox(height: screenHeight * 0.05),
               // candidate 1
               ResultList(
-                imagePath: 'asset/images/avatar2.png',
+                imagePath: 'assets/images/avatar2.png',
                 name: 'Siddheshwar Kamjalge',
                 progressValue: 0.42,
                 currentScore: 420,
@@ -46,7 +46,7 @@ class _ResultScreenState extends State<ResultScreen> {
               SizedBox(height: screenHeight * 0.03),
               // candidate 2
               ResultList(
-                imagePath: 'asset/images/avatar3.png',
+                imagePath: 'assets/images/avatar3.png',
                 name: 'Satyam Wadje',
                 progressValue: 0.3,
                 currentScore: 300,
@@ -55,7 +55,7 @@ class _ResultScreenState extends State<ResultScreen> {
               SizedBox(height: screenHeight * 0.03),
               // candidate 3
               ResultList(
-                imagePath: 'asset/images/avatar1.png',
+                imagePath: 'assets/images/avatar1.png',
                 name: 'Shekhar Tikhe',
                 progressValue: 0.25,
                 currentScore: 250,
