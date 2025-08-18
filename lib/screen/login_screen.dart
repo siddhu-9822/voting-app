@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vote/screen/sign_up.dart';
 import 'package:flutter_vote/screen/welcome_screen.dart';
 import 'package:flutter_vote/widgets/custom_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SimpleLoginScreen extends StatefulWidget {
-  const SimpleLoginScreen({super.key});
+  final String? registeredEmail;
+  final String? registeredPassword;
+
+  const SimpleLoginScreen({
+    super.key,
+    this.registeredEmail,
+    this.registeredPassword,
+  });
 
   @override
   State<SimpleLoginScreen> createState() => _SimpleLoginScreenState();
@@ -15,7 +23,7 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _handleLogin() {
+  void _handleLogin() async {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
@@ -26,8 +34,11 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
       return;
     }
 
-    // Fixed email & password check
-    if (email == "skkaa971@gmail.com" && password == "Siddhu@98") {
+    final prefs = await SharedPreferences.getInstance();
+    String? savedEmail = prefs.getString('email');
+    String? savedPassword = prefs.getString('password');
+
+    if (email == savedEmail && password == savedPassword) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const WelcomeScreen()),
@@ -35,6 +46,15 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Invalid email or password')),
+      );
+    }
+
+    if (email == savedEmail && password == savedPassword) {
+      await prefs.setBool('loggedIn', true); // Save login status
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const WelcomeScreen()),
       );
     }
   }

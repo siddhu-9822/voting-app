@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vote/screen/login_screen.dart';
 import 'package:flutter_vote/screen/voter_list_screen.dart';
 import 'package:flutter_vote/widgets/custom_button.dart';
 import 'package:flutter_vote/widgets/custom_voteInfocard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,6 +13,142 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey _accountIconKey = GlobalKey();
+  OverlayEntry? _accountOverlay;
+
+  void _showAccountDropdown(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    final username = prefs.getString('username') ?? 'User';
+
+    // Avoid stacking multiple overlays
+    if (_accountOverlay != null) {
+      _accountOverlay!.remove();
+      _accountOverlay = null;
+      return;
+    }
+
+    final RenderBox renderBox =
+        _accountIconKey.currentContext!.findRenderObject() as RenderBox;
+    final Offset offset = renderBox.localToGlobal(Offset.zero);
+    final Size size = renderBox.size;
+
+    _accountOverlay = OverlayEntry(
+      builder: (context) => Stack(
+        children: [
+          // Tap outside to dismiss
+          GestureDetector(
+            onTap: () {
+              _accountOverlay?.remove();
+              _accountOverlay = null;
+            },
+            behavior: HitTestBehavior.translucent,
+            child: Container(
+              color: Colors.transparent, // full screen area
+            ),
+          ),
+
+          // Dropdown box positioned under account icon
+          Positioned(
+            top: offset.dy + size.height + 8,
+            right: 16,
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                width: 220,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // const Text(
+                    //   'Hi 👋',
+                    //   style: TextStyle(
+                    //     fontSize: 16,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                    const SizedBox(height: 8),
+
+                    const CircleAvatar(
+                      radius: 60,
+                      backgroundImage: AssetImage('assets/images/avatar2.png'),
+                      backgroundColor: Colors.grey,
+                    ),
+                    const SizedBox(height: 12),
+
+                    Text(
+                      "username : \n "
+                      "  $username",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+
+                    const SizedBox(height: 16),
+                    ElevatedButton.icon(
+                      icon: Icon(Icons.logout, size: 18, color: Colors.black),
+                      label: Text(
+                        'Logout',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(
+                          184,
+                          91,
+                          129,
+                          254,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                      ),
+                      onPressed: () async {
+                        await prefs.setBool('isFirstLoginComplete', false);
+                        await prefs.setBool('loggedIn', false);
+                        await prefs.remove('username');
+
+                        _accountOverlay?.remove();
+                        _accountOverlay = null;
+
+                        if (context.mounted) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const SimpleLoginScreen(),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    Overlay.of(context).insert(_accountOverlay!);
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -35,13 +173,17 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.account_circle_outlined,
-              color: Colors.black,
-              size: screenWidth * 0.09,
+          GestureDetector(
+            key: _accountIconKey,
+            onTap: () => _showAccountDropdown(context),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Icon(
+                Icons.account_circle_outlined,
+                color: Colors.black,
+                size: screenWidth * 0.09,
+              ),
             ),
-            onPressed: () {},
           ),
         ],
       ),

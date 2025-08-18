@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vote/screen/login_screen.dart';
 import 'package:flutter_vote/widgets/custom_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -12,6 +13,13 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
+
+  // Controllers to capture text
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +43,6 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(height: size.height * 0.03),
 
-              // Logo
               Image.asset(
                 'assets/images/vote_logo.png',
                 height: size.height * 0.20,
@@ -43,18 +50,17 @@ class _SignUpState extends State<SignUp> {
               SizedBox(height: size.height * 0.03),
 
               // Email
-              _buildTextField(label: 'Email'),
+              _buildTextField(label: 'Email', controller: emailController),
               SizedBox(height: size.height * 0.03),
 
               // Password
               _buildTextField(
                 label: 'Password',
+                controller: passwordController,
                 isPassword: true,
                 isVisible: _isPasswordVisible,
                 onVisibilityChanged: () {
-                  setState(() {
-                    _isPasswordVisible = !_isPasswordVisible;
-                  });
+                  setState(() => _isPasswordVisible = !_isPasswordVisible);
                 },
               ),
               SizedBox(height: size.height * 0.03),
@@ -62,25 +68,49 @@ class _SignUpState extends State<SignUp> {
               // Confirm Password
               _buildTextField(
                 label: 'Confirm Password',
+                controller: confirmPasswordController,
                 isPassword: true,
                 isVisible: _isConfirmPasswordVisible,
                 onVisibilityChanged: () {
-                  setState(() {
-                    _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
-                  });
+                  setState(
+                    () =>
+                        _isConfirmPasswordVisible = !_isConfirmPasswordVisible,
+                  );
                 },
               ),
               SizedBox(height: size.height * 0.03),
 
               // Username
-              _buildTextField(label: 'Username'),
+              _buildTextField(
+                label: 'Username',
+                controller: usernameController,
+              ),
+
               SizedBox(height: size.height * 0.06),
 
               // Sign Up Button
               CustomButton(
                 text: 'Sign Up',
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () async {
+                  final prefs = await SharedPreferences.getInstance();
+
+                  // Save email, password, and username
+                  await prefs.setString('email', emailController.text.trim());
+                  await prefs.setString(
+                    'password',
+                    passwordController.text.trim(),
+                  );
+                  await prefs.setString(
+                    'username',
+                    usernameController.text.trim(),
+                  );
+
+                  // Optional: also mark first login as incomplete
+                  await prefs.setBool('isFirstLoginComplete', false);
+                  await prefs.setBool('loggedIn', false);
+
+                  // Navigate to Login Screen
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const SimpleLoginScreen(),
@@ -88,6 +118,7 @@ class _SignUpState extends State<SignUp> {
                   );
                 },
               ),
+
               SizedBox(height: size.height * 0.02),
 
               // Already have account
@@ -127,11 +158,13 @@ class _SignUpState extends State<SignUp> {
 
   Widget _buildTextField({
     required String label,
+    required TextEditingController controller,
     bool isPassword = false,
     bool isVisible = false,
     VoidCallback? onVisibilityChanged,
   }) {
     return TextField(
+      controller: controller,
       obscureText: isPassword && !isVisible,
       decoration: InputDecoration(
         labelText: label,
@@ -148,7 +181,6 @@ class _SignUpState extends State<SignUp> {
               )
             : null,
       ),
-
       style: const TextStyle(color: Colors.black, fontSize: 20),
     );
   }
