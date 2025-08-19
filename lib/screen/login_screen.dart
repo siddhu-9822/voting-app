@@ -139,20 +139,19 @@ class _SimpleLoginScreenState extends State<SimpleLoginScreen> {
                 SizedBox(height: size.height * 0.02),
 
                 // Forgot Password
-                GestureDetector(
-                  onTap: () {
-                    // Forgot password logic
-                  },
-                  child: const Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 17,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-
+                // GestureDetector(
+                //   onTap: () {
+                //     // Forgot password logic
+                //   },
+                //   child: const Text(
+                //     "Forgot Password?",
+                //     style: TextStyle(
+                //       color: Colors.blue,
+                //       fontSize: 17,
+                //       decoration: TextDecoration.underline,
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: size.height * 0.1),
 
                 // Login Button

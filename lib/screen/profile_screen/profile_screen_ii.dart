@@ -3,6 +3,7 @@ import 'package:flutter_vote/screen/result_screen.dart';
 import 'package:flutter_vote/screen/voter_list_screen.dart';
 import 'package:flutter_vote/widgets/custom_button.dart';
 import 'package:flutter_vote/widgets/custom_cliper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen2 extends StatefulWidget {
   const ProfileScreen2({super.key});
@@ -12,6 +13,32 @@ class ProfileScreen2 extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen2> {
+  @override
+  void initState() {
+    super.initState();
+    _setInitialValueIfNotExists();
+  }
+
+  // Set initial value only once (e.g., 5)
+  Future<void> _setInitialValueIfNotExists() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey('counte')) {
+      await prefs.setInt('counte', 300); // Set initial value in code
+    }
+  }
+
+  // Increment and navigate
+  Future<void> _incrementAndNavigate() async {
+    final prefs = await SharedPreferences.getInstance();
+    int currentValue = prefs.getInt('counte') ?? 0;
+    await prefs.setInt('counte', currentValue + 1);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ResultScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -117,14 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen2> {
               padding: const EdgeInsets.only(right: 50, left: 50),
               child: CustomButton(
                 text: 'Vote',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ResultScreen(),
-                    ),
-                  );
-                },
+                onPressed: _incrementAndNavigate,
               ),
             ),
           ],

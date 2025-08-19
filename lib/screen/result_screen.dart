@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vote/screen/home_screen.dart';
 import 'package:flutter_vote/widgets/custom_button.dart';
 import 'package:flutter_vote/widgets/result_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({super.key});
@@ -11,6 +12,25 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _ResultScreenState extends State<ResultScreen> {
+  int counter = 0;
+  int counte = 0;
+  int count = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCounter();
+  }
+
+  void _loadCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      counter = prefs.getInt('counter') ?? 0; // Siddheshwar Kamjalge
+      counte = prefs.getInt('counte') ?? 0; // Satyam Wadje
+      count = prefs.getInt('count') ?? 0; // Shekhar Tikhe
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -39,8 +59,8 @@ class _ResultScreenState extends State<ResultScreen> {
               ResultList(
                 imagePath: 'assets/images/avatar2.png',
                 name: 'Siddheshwar Kamjalge',
-                progressValue: 0.42,
-                currentScore: 420,
+                progressValue: counter / 1000,
+                currentScore: counter,
                 maxScore: 1000,
               ),
               SizedBox(height: screenHeight * 0.03),
@@ -48,8 +68,8 @@ class _ResultScreenState extends State<ResultScreen> {
               ResultList(
                 imagePath: 'assets/images/avatar3.png',
                 name: 'Satyam Wadje',
-                progressValue: 0.3,
-                currentScore: 300,
+                progressValue: counte / 1000,
+                currentScore: counte,
                 maxScore: 1000,
               ),
               SizedBox(height: screenHeight * 0.03),
@@ -57,8 +77,8 @@ class _ResultScreenState extends State<ResultScreen> {
               ResultList(
                 imagePath: 'assets/images/avatar1.png',
                 name: 'Shekhar Tikhe',
-                progressValue: 0.25,
-                currentScore: 250,
+                progressValue: count / 1000,
+                currentScore: count,
                 maxScore: 1000,
               ),
               SizedBox(height: screenHeight * 0.25),
